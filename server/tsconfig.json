@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",               // Modern JS
+    "module": "ESNext",               // ESM support
+    "moduleResolution": "node",       // Node module resolution
+    "rootDir": "src",                 // Source files folder
+    "outDir": "dist",                 // Compiled JS folder
+    "esModuleInterop": true,          // For CommonJS compatibility
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "types": ["node"]                 // Include Node types
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
