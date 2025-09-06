@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - ./server:/app           # For live reload
+      - /app/node_modules
+    command: npm run dev        # Use ts-node in development
+
+  frontend:
+    build:
+      context: ./user-ui
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"               # Vite dev default port mapped to nginx
+ 
