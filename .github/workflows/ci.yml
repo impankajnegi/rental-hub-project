@@ -1,0 +1,56 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Backend setup
+      - name: Install Backend Dependencies
+        working-directory: ./server
+        run: npm install
+
+      - name: Build Backend
+        working-directory: ./server
+        run: npm run build
+
+      # Frontend setup
+      - name: Install Frontend Dependencies
+        working-directory: ./client
+        run: npm install
+
+      - name: Build Frontend
+        working-directory: ./client
+        run: npm run build
+
+      # # Optional: Run Tests
+      # - name: Run Backend Tests
+      #   working-directory: ./server
+      #   run: npm test
+
+      # - name: Run Frontend Tests
+      #   working-directory: ./client
+      #   run: npm test
+
+      #  Docker Build Check
+      - name: Build Docker Images
+        run: |
+          docker build -t rentalhub-backend ./server
+          docker build -t rentalhub-frontend ./client
